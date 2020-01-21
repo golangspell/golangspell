@@ -1,0 +1,57 @@
+Local repo:
+  $HOME/.golangspell/spellbook/spellindex.yaml
+  $HOME/.golangspell/spellbook/core - project basic structure
+  $HOME/.golangspell/spellbook/mongodb - repo
+  $HOME/.golangspell/spellbook/cassandra - repo
+  $HOME/.golangspell/spellbook/elasticsearch - repo
+  $HOME/.golangspell/spellbook/kafka - streaming
+  $HOME/.golangspell/spellbook/rabbitmq - queue
+  $HOME/.golangspell/spellbook/redis - cache
+  $HOME/.golangspell/spellbook/travis - ci
+  $HOME/.golangspell/spellbook/gitlab - ci
+  $HOME/.golangspell/spellbook/jenkins - ci
+  $HOME/.golangspell/spellbook/newrelic - monitoring
+
+Structure:
+  - root:
+    - appcontext (core):
+      - context_test.go
+      - context.go
+    - config (core):
+      - environment.go
+      - version.go
+    - controller / cmd (core)
+    - deployment (ci)
+    - domain (core):
+      - model_health.go
+      - model_info.go
+    - gateway:
+      - customlog (core)
+      - mongodb (repo)
+      - cassandra (repo)
+      - elasticsearch (repo)
+      - kafka (streaming)
+      - rabbitmq (queue)
+      - redis (cache)
+      - newrelic (monitoring)
+    - usecase (core)
+    - Dockerfile (core)
+
+Commands:
+  - help
+  - version
+  - init (core)
+  - createdomainmodel (core)
+  - createrepo
+  - createcontroller (core)
+  - createusecase (core)
+  - createhttpclient (core)
+  - createstream
+  - createqueue
+  - createcache
+  - createdeployment
+  - createplugin (core)
+  - createci
+  - deploy
+  - addplugin (core)
+  - removeplugin (core)
