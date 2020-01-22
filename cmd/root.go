@@ -8,10 +8,16 @@ import (
 	"github.com/spf13/viper"
 )
 
+const (
+	//DefautConfigFile holds the Golangspell's config file path
+	DefautConfigFile string = "$HOME/.golangspell/.golangspell"
+)
+
 var (
 	// Used for flags.
-	cfgFile     string
-	userLicense string
+	CfgFile     string
+	UserLicense string
+	Author      string
 
 	rootCmd = &cobra.Command{
 		Use:   "gospell",
@@ -32,22 +38,20 @@ func Execute() error {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cobra.yaml)")
-	rootCmd.PersistentFlags().StringP("author", "a", "Danilo Rocha Valente", "author name for copyright attribution")
-	rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "MIT", "name of license for the project")
+	rootCmd.PersistentFlags().StringVar(&CfgFile, "config", "", fmt.Sprintf("config file (default is %s)", DefautConfigFile))
+	rootCmd.PersistentFlags().StringVarP(&Author, "author", "a", "", "author name for copyright attribution")
+	rootCmd.PersistentFlags().StringVarP(&UserLicense, "license", "l", "Apache", "name of license for the project")
 	rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
 	viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
 	viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
-	viper.SetDefault("author", "Danilo Rocha Valente <valente.danilo@gmail.com>")
-	viper.SetDefault("license", "MIT")
-
-	//rootCmd.AddCommand(addCmd)
+	viper.SetDefault("config", DefautConfigFile)
+	viper.SetDefault("license", "Apache")
 }
 
 func initConfig() {
-	if cfgFile != "" {
+	if CfgFile != "" {
 		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
+		viper.SetConfigFile(CfgFile)
 	} else {
 		// Find home directory.
 		home, err := homedir.Dir()
@@ -57,7 +61,7 @@ func initConfig() {
 
 		// Search config in home directory with name ".cobra" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".cobra")
+		viper.SetConfigName(".golangspell")
 	}
 
 	viper.AutomaticEnv()
