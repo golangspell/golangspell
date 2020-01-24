@@ -1,4 +1,4 @@
-module golangspell.com/golangspell
+module github.com/danilovalente/golangspell
 
 go 1.13
 

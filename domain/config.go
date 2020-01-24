@@ -1,6 +1,6 @@
 package domain
 
-import "golangspell.com/golangspell/cmd"
+import "github.com/danilovalente/golangspell/cmd"
 
 //Flag s defines special behaviors and configurations to the commands
 type Flag struct {

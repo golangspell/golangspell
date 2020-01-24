@@ -10,7 +10,7 @@ and drive you through new amazing possibilities
 ## Dependency Management
 
 The project is using [Go Modules](https://blog.golang.org/using-go-modules) for dependency management
-Module: golangspell.com/golangspell
+Module: github.com/danilovalente/golangspell
 
 ## Architectural Model
 
@@ -42,5 +42,5 @@ Following the Clean Architecture principles, the generated applications will be 
 
 The command *golangspell help* shows all available options. To start a new project, the starting point is the command init (to know more run *golangspell help init*)
 
-![alt text](https://golangspell.com/golangspell/blob/master/img/gopher_spell.png?raw=true)
+![alt text](https://github.com/danilovalente/golangspell/blob/master/img/gopher_spell.png?raw=true)
 
