@@ -30,42 +30,11 @@ type Config struct {
 	Spellbook []Spell `json:"spellbook"`
 }
 
-func buildCoreInitCommand() Command {
-	coreInitFlagModule := Flag{
-		Name:      "module",
-		Shorthand: "m",
-		Value:     "",
-		Usage:     "Module name (required) to initialize with 'Go Modules'. Example: mydomain.com/myapplication",
-	}
-	coreInitFlagAppName := Flag{
-		Name:      "appname",
-		Shorthand: "n",
-		Value:     "",
-		Usage:     "App name (required) to initialize with 'Go Modules'. Example: myapplication",
-	}
-	coreInitFlags := make([]Flag, 2)
-	coreInitFlags[0] = coreInitFlagModule
-	coreInitFlags[1] = coreInitFlagAppName
-	coreInit := Command{
-		Name:  "init",
-		Flags: coreInitFlags,
-	}
-	return coreInit
-}
-
 func BuildDefaultConfig() Config {
-	coreCommands := make([]Command, 8)
-	coreCommands[0] = buildCoreInitCommand()
-	core := Spell{
-		Name:     "core",
-		URL:      "https://github.com/danilovalente/golangspell-core",
-		Commands: coreCommands,
-	}
-	spellbook := make([]Spell, 1)
-	spellbook[0] = core
+	core := Spell{}
 	return Config{
 		Author:    cmd.Author,
 		License:   cmd.UserLicense,
-		Spellbook: spellbook,
+		Spellbook: []Spell{core},
 	}
 }
