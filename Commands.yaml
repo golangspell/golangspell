@@ -1,5 +1,5 @@
 Local repo:
-  $HOME/.golangspell/spellbook/spellindex.yaml
+  $HOME/.golangspell/.golangspell.json
   $HOME/.golangspell/spellbook/core - project basic structure
   $HOME/.golangspell/spellbook/mongodb - repo
   $HOME/.golangspell/spellbook/cassandra - repo
@@ -11,6 +11,9 @@ Local repo:
   $HOME/.golangspell/spellbook/gitlab - ci
   $HOME/.golangspell/spellbook/jenkins - ci
   $HOME/.golangspell/spellbook/newrelic - monitoring
+
+  Windows:
+  %USERPROFILE%/...
 
 Structure:
   - root:

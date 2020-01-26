@@ -1,29 +1,29 @@
-author:
-license:
-spellbook:
-  chapters:
-    core:
-      url: https://github.com/danilovalente/golangspell-core
-      commands:
-        - init:
-          - flags:
-            - module:
-              - shorthand: m
-              - value:
-              - usage: "Module name (required) to initialize with 'Go Modules'. Example: mydomain.com/myapplication"
-            - appname:
-              - shorthand: n
-              - value:
-              - usage: "App name (required) to initialize with 'Go Modules'. Example: myapplication"
-        - createdomainmodel:
-          - flags:
-            - domain:
-              - shorthand: n
-              - value:
-              - usage: "Domain entity name (required) to create. Example: Product"
-        - createcontroller
-        - createusecase
-        - createhttpclient
-        - createplugin
-        - addplugin
-        - removeplugin
+{
+  "author": "",
+  "license": "",
+  "spellbook": {
+    "core": {
+      "name": "core",
+      "url": "https://github.com/danilovalente/golangspell-core",
+      "commands": {
+        "init": {
+          "name": "init",
+          "flags": {
+            "module": {
+              "name": "module",
+              "shorthand": "m",
+              "value": "",
+              "usage": "Module name (required) to initialize with 'Go Modules'. Example: mydomain.com/myapplication"
+            },
+            "name": {
+              "name": "appname",
+              "shorthand": "n",
+              "value": "",
+              "usage": "App name (required) to initialize with 'Go Modules'. Example: myapplication"
+            }
+          }
+        }
+      }
+    }
+  }
+}

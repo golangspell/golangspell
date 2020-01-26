@@ -19,7 +19,7 @@ var (
 	UserLicense string
 	Author      string
 
-	rootCmd = &cobra.Command{
+	RootCmd = &cobra.Command{
 		Use:   "gospell",
 		Short: "Golang Spell - A Golang Code generator for building Microservices",
 		Long: `Golang Spell is a CLI library for Go. 
@@ -32,18 +32,18 @@ and drive you through new amazing possibilities`,
 
 // Execute executes the root command.
 func Execute() error {
-	return rootCmd.Execute()
+	return RootCmd.Execute()
 }
 
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringVar(&CfgFile, "config", "", fmt.Sprintf("config file (default is %s)", DefautConfigFile))
-	rootCmd.PersistentFlags().StringVarP(&Author, "author", "a", "", "author name for copyright attribution")
-	rootCmd.PersistentFlags().StringVarP(&UserLicense, "license", "l", "Apache", "name of license for the project")
-	rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
-	viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
-	viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
+	RootCmd.PersistentFlags().StringVar(&CfgFile, "config", "", fmt.Sprintf("config file (default is %s)", DefautConfigFile))
+	RootCmd.PersistentFlags().StringVarP(&Author, "author", "a", "", "author name for copyright attribution")
+	RootCmd.PersistentFlags().StringVarP(&UserLicense, "license", "l", "Apache", "name of license for the project")
+	RootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
+	viper.BindPFlag("author", RootCmd.PersistentFlags().Lookup("author"))
+	viper.BindPFlag("useViper", RootCmd.PersistentFlags().Lookup("viper"))
 	viper.SetDefault("config", DefautConfigFile)
 	viper.SetDefault("license", "Apache")
 }
