@@ -22,3 +22,8 @@ func (golangLibrary *GolangLibrary) BinPath() string {
 func (golangLibrary *GolangLibrary) SrcPath() string {
 	return fmt.Sprintf("%s/src/%s", config.Values.GoPath, strings.ReplaceAll(strings.ReplaceAll(golangLibrary.URL, "http://", ""), "https://", ""))
 }
+
+//URLToPackage returns the package name referenced by the URL
+func (golangLibrary *GolangLibrary) URLToPackage() string {
+	return strings.ReplaceAll(strings.ReplaceAll(golangLibrary.URL, "http://", ""), "https://", "")
+}

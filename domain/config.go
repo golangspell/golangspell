@@ -39,10 +39,10 @@ func (spell *Spell) URLToPackage() string {
 
 //Config holds the Golangspell tool configuration
 type Config struct {
-	Author        string           `json:"author"`
-	License       string           `json:"license"`
-	DefaultSpells []GolangLibrary  `json:"defaultSpells"`
-	Spellbook     map[string]Spell `json:"spellbook"`
+	Author        string            `json:"author"`
+	License       string            `json:"license"`
+	DefaultSpells []GolangLibrary   `json:"defaultSpells"`
+	Spellbook     map[string]*Spell `json:"spellbook"`
 }
 
 /*
@@ -78,8 +78,8 @@ func InitConfig() appcontext.Component {
 }
 
 //GetConfig from the Current Application Context
-func GetConfig() Config {
-	return appcontext.Current.Get(appcontext.Config).(Config)
+func GetConfig() *Config {
+	return appcontext.Current.Get(appcontext.Config).(*Config)
 }
 
 //GetConfigRepository from the Current Application Context

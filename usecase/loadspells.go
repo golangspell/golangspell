@@ -44,9 +44,10 @@ func loadSpellDescription(golangLibrary *domain.GolangLibrary, config *domain.Co
 		panic(err)
 	}
 	if nil == config.Spellbook {
-		config.Spellbook = make(map[string]domain.Spell, 0)
+		config.Spellbook = make(map[string]*domain.Spell, 0)
 	}
-	config.Spellbook[spell.Name] = spell
+	spell.Installed = true
+	config.Spellbook[spell.Name] = &spell
 	repo := domain.GetConfigRepository()
 	repo.Save(config)
 	fmt.Printf("Spell %s description loaded\n", golangLibrary.Name)
@@ -56,17 +57,13 @@ func loadSpellDescription(golangLibrary *domain.GolangLibrary, config *domain.Co
 func LoadSpells() {
 	fmt.Println("Loading Spells ...")
 	config := domain.GetConfig()
-	if nil == config.Spellbook || len(config.Spellbook) == 0 {
-		for _, golangLibrary := range config.DefaultSpells {
-			loadSpellDescription(&golangLibrary, &config)
-		}
-	}
-	for _, spell := range config.Spellbook {
-		if !spell.Installed {
-			InstallSpell(&spell, &config)
-		}
-		for _, command := range spell.Commands {
-			loadSpellCommand(&spell, &command)
+	for _, golangLibrary := range config.DefaultSpells {
+		if nil == config.Spellbook || nil == config.Spellbook[golangLibrary.Name] {
+			err := InstallSpell(&golangLibrary, config)
+			if err != nil {
+				fmt.Printf("An error occurred while trying to install the spell: %s\n", err.Error())
+			}
+			loadSpellDescription(&golangLibrary, config)
 		}
 	}
 	fmt.Println("Spells loaded!")
