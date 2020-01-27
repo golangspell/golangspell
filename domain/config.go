@@ -4,6 +4,7 @@ import (
 	"github.com/danilovalente/golangspell/appcontext"
 	"github.com/danilovalente/golangspell/cmd"
 	"github.com/danilovalente/golangspell/config"
+	"strings"
 )
 
 //Flag s defines special behaviors and configurations to the commands
@@ -31,11 +32,17 @@ type Spell struct {
 	Installed bool               `json:"installed"`
 }
 
+//URLToPackage returns the package name referenced by the URL
+func (spell *Spell) URLToPackage() string {
+	return strings.ReplaceAll(strings.ReplaceAll(spell.URL, "http://", ""), "https://", "")
+}
+
 //Config holds the Golangspell tool configuration
 type Config struct {
-	Author    string           `json:"author"`
-	License   string           `json:"license"`
-	Spellbook map[string]Spell `json:"spellbook"`
+	Author        string           `json:"author"`
+	License       string           `json:"license"`
+	DefaultSpells []GolangLibrary  `json:"defaultSpells"`
+	Spellbook     map[string]Spell `json:"spellbook"`
 }
 
 /*
@@ -47,31 +54,16 @@ type ConfigRepository interface {
 	Save(config *Config) (string, error)
 }
 
+//BuildDefaultConfig used to bootstrap application at first execution
 func BuildDefaultConfig() Config {
-	core := Spell{
-		Name: "core",
-		URL:  "https://github.com/danilovalente/golangspell-core",
-		Commands: map[string]Command{
-			"init": Command{
-				Name:             "init",
-				ShortDescription: "The init command creates a new Golang application using the Golangspell base structure",
-				LongDescription: `The init command creates a new Golang application using the Golangspell base structure
-The Architectural Model is based in the Clean Architecture and is the basis to add more resources like domain models and repositories.
-Args:
-module: Module name (required) to initialize with 'Go Modules'. Example: mydomain.com/myapplication"
-appname: App name (required) to initialize with 'Go Modules'. Example: myapplication
-
-Syntax: 
-golangspell init [module] [appname]
-`,
-				ValidArgs: []string{"module", "name"},
+	return Config{
+		Author:  cmd.Author,
+		License: cmd.UserLicense,
+		DefaultSpells: []GolangLibrary{
+			{
+				URL: "https://github.com/danilovalente/golangspell-core", Name: "golangspell-core",
 			},
 		},
-	}
-	return Config{
-		Author:    cmd.Author,
-		License:   cmd.UserLicense,
-		Spellbook: map[string]Spell{"core": core},
 	}
 }
 
@@ -83,6 +75,16 @@ func InitConfig() appcontext.Component {
 		panic(err)
 	}
 	return config
+}
+
+//GetConfig from the Current Application Context
+func GetConfig() Config {
+	return appcontext.Current.Get(appcontext.Config).(Config)
+}
+
+//GetConfigRepository from the Current Application Context
+func GetConfigRepository() ConfigRepository {
+	return appcontext.Current.Get(appcontext.ConfigRepository).(ConfigRepository)
 }
 
 func init() {

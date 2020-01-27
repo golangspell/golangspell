@@ -9,6 +9,6 @@ import (
 
 func main() {
 	usecase.LoadConfig()
-	usecase.LoadPlugins()
+	usecase.LoadSpells()
 	cmd.Execute()
 }

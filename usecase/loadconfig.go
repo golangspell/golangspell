@@ -1,10 +1,8 @@
 package usecase
 
-import (
-	"github.com/danilovalente/golangspell/appcontext"
-)
+import "github.com/danilovalente/golangspell/domain"
 
 //LoadConfig triggers the lazy loading of the application Config
 func LoadConfig() {
-	appcontext.Current.Get(appcontext.Config)
+	domain.GetConfig()
 }

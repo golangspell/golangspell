@@ -10,7 +10,6 @@ import (
 	"github.com/danilovalente/golangspell/appcontext"
 	"github.com/danilovalente/golangspell/config"
 	"github.com/danilovalente/golangspell/domain"
-	"github.com/mitchellh/go-homedir"
 )
 
 const (
@@ -21,10 +20,7 @@ const (
 var configFilePath = fmt.Sprintf("%s/%s", getGolangspellHome(), configFileName)
 
 func getGolangspellHome() string {
-	home, err := homedir.Dir()
-	if err != nil {
-		panic(err)
-	}
+	home := config.GetHomeDir()
 	return fmt.Sprintf("%s/.golangspell", home)
 }
 
