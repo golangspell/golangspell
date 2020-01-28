@@ -20,7 +20,7 @@ var (
 	Author      string
 
 	RootCmd = &cobra.Command{
-		Use:   "gospell",
+		Use:   "golangspell",
 		Short: "Golang Spell - A Golang Code generator for building Microservices",
 		Long: `Golang Spell is a CLI library for Go. 
 Golang Spell makes it possible to build lightning fast Microservices in Go 

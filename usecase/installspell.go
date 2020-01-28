@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 
 	"github.com/danilovalente/golangspell/domain"
@@ -11,11 +12,12 @@ import (
 func InstallSpell(golangLibrary *domain.GolangLibrary, config *domain.Config) error {
 	fmt.Printf("Installing Spell %s ...\n", golangLibrary.Name)
 	execCmd := exec.Command("go", "get", golangLibrary.URLToPackage())
-	outputBytes, err := execCmd.Output()
+	execCmd.Stdout = os.Stdout
+	execCmd.Stderr = os.Stderr
+	err := execCmd.Run()
 	if err != nil {
 		return fmt.Errorf("go get %s failed with %s", golangLibrary.URLToPackage(), err.Error())
 	}
-	fmt.Println(string(outputBytes))
 	fmt.Printf("Spell %s installed!\n", golangLibrary.Name)
 	return nil
 }

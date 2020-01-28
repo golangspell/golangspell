@@ -1,10 +1,11 @@
 package domain
 
 import (
+	"strings"
+
 	"github.com/danilovalente/golangspell/appcontext"
 	"github.com/danilovalente/golangspell/cmd"
 	"github.com/danilovalente/golangspell/config"
-	"strings"
 )
 
 //Flag s defines special behaviors and configurations to the commands
@@ -17,19 +18,19 @@ type Flag struct {
 
 //Command is an available command in a specific Spell (plugin)
 type Command struct {
-	Name             string          `json:"name"`
-	ShortDescription string          `json:"shortDescription"`
-	LongDescription  string          `json:"longDescription"`
-	Flags            map[string]Flag `json:"flags"`
-	ValidArgs        []string        `json:"validArgs"`
+	Name             string           `json:"name"`
+	ShortDescription string           `json:"shortDescription"`
+	LongDescription  string           `json:"longDescription"`
+	Flags            map[string]*Flag `json:"flags"`
+	ValidArgs        []string         `json:"validArgs"`
 }
 
 //Spell maps a Golangspell plugin
 type Spell struct {
-	Name      string             `json:"name"`
-	URL       string             `json:"url"`
-	Commands  map[string]Command `json:"commands"`
-	Installed bool               `json:"installed"`
+	Name      string              `json:"name"`
+	URL       string              `json:"url"`
+	Commands  map[string]*Command `json:"commands"`
+	Installed bool                `json:"installed"`
 }
 
 //URLToPackage returns the package name referenced by the URL

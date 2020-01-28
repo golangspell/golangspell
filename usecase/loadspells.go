@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 	"os/exec"
 
 	"github.com/danilovalente/golangspell/cmd"
-
 	"github.com/danilovalente/golangspell/domain"
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 )
 
 func loadSpellCommand(spell *domain.Spell, command *domain.Command) {
@@ -20,13 +21,17 @@ func loadSpellCommand(spell *domain.Spell, command *domain.Command) {
 		Run: func(cmd *cobra.Command, args []string) {
 			library := domain.GolangLibrary{Name: spell.Name, URL: spell.URL}
 			spellCommand := exec.Command(library.BinPath(), append([]string{command.Name}, args...)...)
-			outputBytes, err := spellCommand.Output()
+			spellCommand.Stdout = os.Stdout
+			spellCommand.Stderr = os.Stderr
+			err := spellCommand.Run()
 			if err != nil {
 				log.Fatalf("%s failed with %s\n", command.Name, err)
-			} else {
-				fmt.Println(string(outputBytes))
 			}
 		},
+		ValidArgs: command.ValidArgs,
+	}
+	for _, flag := range command.Flags {
+		spellCMD.PersistentFlags().AddFlag(&pflag.Flag{Name: flag.Name, Shorthand: flag.Shorthand, Usage: flag.Usage})
 	}
 	cmd.RootCmd.AddCommand(spellCMD)
 }
@@ -34,12 +39,12 @@ func loadSpellCommand(spell *domain.Spell, command *domain.Command) {
 func loadSpellDescription(golangLibrary *domain.GolangLibrary, config *domain.Config) {
 	fmt.Printf("Loading Spell %s description ...\n", golangLibrary.Name)
 	execCmd := exec.Command(golangLibrary.BinPath(), "build-config")
-	outputBytes, err := execCmd.Output()
+	out, err := execCmd.CombinedOutput()
 	if err != nil {
 		log.Fatalf("%s build-config failed with %s\n", golangLibrary.BinPath(), err)
 	}
 	var spell domain.Spell
-	err = json.Unmarshal(outputBytes, &spell)
+	err = json.Unmarshal(out, &spell)
 	if err != nil {
 		panic(err)
 	}
@@ -62,8 +67,14 @@ func LoadSpells() {
 			err := InstallSpell(&golangLibrary, config)
 			if err != nil {
 				fmt.Printf("An error occurred while trying to install the spell: %s\n", err.Error())
+			} else {
+				loadSpellDescription(&golangLibrary, config)
 			}
-			loadSpellDescription(&golangLibrary, config)
+		}
+	}
+	for _, spell := range config.Spellbook {
+		for _, command := range spell.Commands {
+			loadSpellCommand(spell, command)
 		}
 	}
 	fmt.Println("Spells loaded!")
