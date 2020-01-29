@@ -66,7 +66,9 @@ func LoadSpells() {
 	}
 	for _, spell := range config.Spellbook {
 		for _, command := range spell.Commands {
-			loadSpellCommand(spell, command)
+			if command.Name != "build-config" {
+				loadSpellCommand(spell, command)
+			}
 		}
 	}
 	fmt.Println("Spells loaded!")
