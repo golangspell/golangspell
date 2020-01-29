@@ -3,14 +3,10 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/danilovalente/golangspell/config"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-)
-
-const (
-	//DefautConfigFile holds the Golangspell's config file path
-	DefautConfigFile string = "$HOME/.golangspell/.golangspell"
 )
 
 var (
@@ -18,6 +14,8 @@ var (
 	CfgFile     string
 	UserLicense string
 	Author      string
+	//DefautConfigFile holds the Golangspell's config file path
+	DefautConfigFile string = config.ConfigFilePath
 
 	RootCmd = &cobra.Command{
 		Use:   "golangspell",

@@ -10,15 +10,11 @@ import (
 	"github.com/danilovalente/golangspell/cmd"
 	"github.com/danilovalente/golangspell/domain"
 	"github.com/spf13/cobra"
-	"github.com/spf13/pflag"
 )
 
 func loadSpellCommand(spell *domain.Spell, command *domain.Command) {
-	spellCMD := &cobra.Command{
-		Use:   command.Name,
-		Short: command.ShortDescription,
-		Long:  command.LongDescription,
-		Run: func(cmd *cobra.Command, args []string) {
+	spellCMD := command.CobraCommand(
+		func(cmd *cobra.Command, args []string) {
 			library := domain.GolangLibrary{Name: spell.Name, URL: spell.URL}
 			spellCommand := exec.Command(library.BinPath(), append([]string{command.Name}, args...)...)
 			spellCommand.Stdout = os.Stdout
@@ -27,12 +23,8 @@ func loadSpellCommand(spell *domain.Spell, command *domain.Command) {
 			if err != nil {
 				log.Fatalf("%s failed with %s\n", command.Name, err)
 			}
-		},
-		ValidArgs: command.ValidArgs,
-	}
-	for _, flag := range command.Flags {
-		spellCMD.PersistentFlags().AddFlag(&pflag.Flag{Name: flag.Name, Shorthand: flag.Shorthand, Usage: flag.Usage})
-	}
+		})
+
 	cmd.RootCmd.AddCommand(spellCMD)
 }
 

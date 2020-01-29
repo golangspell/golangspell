@@ -6,6 +6,8 @@ import (
 	"github.com/danilovalente/golangspell/appcontext"
 	"github.com/danilovalente/golangspell/cmd"
 	"github.com/danilovalente/golangspell/config"
+	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 )
 
 //Flag s defines special behaviors and configurations to the commands
@@ -23,6 +25,24 @@ type Command struct {
 	LongDescription  string           `json:"longDescription"`
 	Flags            map[string]*Flag `json:"flags"`
 	ValidArgs        []string         `json:"validArgs"`
+}
+
+//RunCommandFunction specifies a function for running a command
+type RunCommandFunction func(cmd *cobra.Command, args []string)
+
+//CobraCommand creates a cobra.Command from the domain.Command specification
+func (command *Command) CobraCommand(runCommandFunction RunCommandFunction) *cobra.Command {
+	spellCMD := &cobra.Command{
+		Use:       command.Name,
+		Short:     command.ShortDescription,
+		Long:      command.LongDescription,
+		Run:       runCommandFunction,
+		ValidArgs: command.ValidArgs,
+	}
+	for _, flag := range command.Flags {
+		spellCMD.PersistentFlags().AddFlag(&pflag.Flag{Name: flag.Name, Shorthand: flag.Shorthand, Usage: flag.Usage})
+	}
+	return spellCMD
 }
 
 //Spell maps a Golangspell plugin

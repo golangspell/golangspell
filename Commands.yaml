@@ -53,8 +53,8 @@ Commands:
   - createqueue
   - createcache
   - createdeployment
-  - createplugin (core)
+  - createspell (core)
   - createci
   - deploy
-  - addplugin (core)
-  - removeplugin (core)
+  - addspell (core)
+  - removespell (core)

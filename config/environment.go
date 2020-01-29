@@ -7,6 +7,11 @@ import (
 	"github.com/spf13/viper"
 )
 
+const (
+	//configFileName defines the configuration file name
+	configFileName = ".golangspell.json"
+)
+
 //Values stores the current configuration values
 var Values Config
 
@@ -27,6 +32,15 @@ func GetHomeDir() string {
 		panic(err)
 	}
 	return home
+}
+
+//ConfigFilePath contains the path of the config file
+var ConfigFilePath = fmt.Sprintf("%s/%s", GetGolangspellHome(), configFileName)
+
+//GetGolangspellHome - platform agnostic
+func GetGolangspellHome() string {
+	home := GetHomeDir()
+	return fmt.Sprintf("%s/.golangspell", home)
 }
 
 func init() {
