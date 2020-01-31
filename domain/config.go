@@ -4,7 +4,6 @@ import (
 	"strings"
 
 	"github.com/danilovalente/golangspell/appcontext"
-	"github.com/danilovalente/golangspell/cmd"
 	"github.com/danilovalente/golangspell/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
@@ -78,8 +77,8 @@ type ConfigRepository interface {
 //BuildDefaultConfig used to bootstrap application at first execution
 func BuildDefaultConfig() Config {
 	return Config{
-		Author:  cmd.Author,
-		License: cmd.UserLicense,
+		Author:  config.Author,
+		License: config.UserLicense,
 		DefaultSpells: []GolangLibrary{
 			{
 				URL: "https://github.com/danilovalente/golangspell-core", Name: "golangspell-core",

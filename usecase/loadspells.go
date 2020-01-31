@@ -7,7 +7,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/danilovalente/golangspell/cmd"
+	"github.com/danilovalente/golangspell/appcontext"
 	"github.com/danilovalente/golangspell/domain"
 	"github.com/spf13/cobra"
 )
@@ -25,7 +25,8 @@ func loadSpellCommand(spell *domain.Spell, command *domain.Command) {
 			}
 		})
 
-	cmd.RootCmd.AddCommand(spellCMD)
+	rootCmd := appcontext.Current.Get(appcontext.RootCmd).(*cobra.Command)
+	rootCmd.AddCommand(spellCMD)
 }
 
 func loadSpellDescription(golangLibrary *domain.GolangLibrary, config *domain.Config) {
@@ -56,12 +57,7 @@ func LoadSpells() {
 	config := domain.GetConfig()
 	for _, golangLibrary := range config.DefaultSpells {
 		if nil == config.Spellbook || nil == config.Spellbook[golangLibrary.Name] {
-			err := InstallSpell(&golangLibrary, config)
-			if err != nil {
-				fmt.Printf("An error occurred while trying to install the spell: %s\n", err.Error())
-			} else {
-				loadSpellDescription(&golangLibrary, config)
-			}
+			AddSpell(&golangLibrary, config)
 		}
 	}
 	for _, spell := range config.Spellbook {

@@ -13,7 +13,15 @@ const (
 )
 
 //Values stores the current configuration values
-var Values Config
+var (
+	Values Config
+	// Used for flags.
+	CfgFile     string
+	UserLicense string
+	Author      string
+	//DefautConfigFile holds the Golangspell's config file path
+	DefautConfigFile string = ConfigFilePath
+)
 
 //Config contains the application's configuration values. Add here your own variables and bind it on init() function
 type Config struct {

@@ -4,6 +4,7 @@ package appcontext
 const (
 	Config           = "Config"
 	ConfigRepository = "ConfigRepository"
+	RootCmd          = "RootCmd"
 )
 
 //Component is the Base interface for all Components

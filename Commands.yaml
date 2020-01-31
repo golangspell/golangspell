@@ -58,3 +58,4 @@ Commands:
   - deploy
   - addspell (core)
   - removespell (core)
+  - updatespell (core)
