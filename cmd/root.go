@@ -41,6 +41,8 @@ func init() {
 	rootCmd.AddCommand(
 		buildAddspellCommand().CobraCommand(runAddspellCommand))
 	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(
+		buildUpdatespellCommand().CobraCommand(runUpdatespellCommand))
 	viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
 	viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
 	viper.SetDefault("config", config.DefautConfigFile)

@@ -6,8 +6,8 @@ import (
 	"github.com/danilovalente/golangspell/domain"
 )
 
-//AddSpell to the Golangspell platform
-func AddSpell(golangLibrary *domain.GolangLibrary, config *domain.Config) {
+//AddOrUpdateSpell to the Golangspell platform
+func AddOrUpdateSpell(golangLibrary *domain.GolangLibrary, config *domain.Config) {
 	err := InstallSpell(golangLibrary, config)
 	if err != nil {
 		fmt.Printf("An error occurred while trying to install the spell: %s\n", err.Error())

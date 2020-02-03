@@ -34,7 +34,7 @@ golangspell addspell [url] [name]`)
 	golangLibrary := domain.GolangLibrary{URL: args[0], Name: args[1]}
 	config := domain.GetConfig()
 	if nil == config.Spellbook || nil == config.Spellbook[golangLibrary.Name] {
-		usecase.AddSpell(&golangLibrary, config)
+		usecase.AddOrUpdateSpell(&golangLibrary, config)
 		fmt.Printf("Spell %s added.\n", golangLibrary.Name)
 	}
 }

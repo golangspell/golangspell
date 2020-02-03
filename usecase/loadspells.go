@@ -57,7 +57,7 @@ func LoadSpells() {
 	config := domain.GetConfig()
 	for _, golangLibrary := range config.DefaultSpells {
 		if nil == config.Spellbook || nil == config.Spellbook[golangLibrary.Name] {
-			AddSpell(&golangLibrary, config)
+			AddOrUpdateSpell(&golangLibrary, config)
 		}
 	}
 	for _, spell := range config.Spellbook {
