@@ -29,6 +29,16 @@ func Execute() error {
 	return rootCmd.Execute()
 }
 
+func addInternalCommands(rootCmd *cobra.Command) {
+	rootCmd.AddCommand(
+		buildAddspellCommand().CobraCommand(runAddspellCommand))
+	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(
+		buildUpdatespellCommand().CobraCommand(runUpdatespellCommand))
+	rootCmd.AddCommand(
+		buildRemovespellCommand().CobraCommand(runRemovespellCommand))
+}
+
 func init() {
 	cobra.OnInitialize(initConfig)
 
@@ -38,11 +48,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&config.Author, "author", "a", "", "author name for copyright attribution")
 	rootCmd.PersistentFlags().StringVarP(&config.UserLicense, "license", "l", "Apache", "name of license for the project")
 	rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
-	rootCmd.AddCommand(
-		buildAddspellCommand().CobraCommand(runAddspellCommand))
-	rootCmd.AddCommand(versionCmd)
-	rootCmd.AddCommand(
-		buildUpdatespellCommand().CobraCommand(runUpdatespellCommand))
+	addInternalCommands(rootCmd)
 	viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
 	viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
 	viper.SetDefault("config", config.DefautConfigFile)
