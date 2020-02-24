@@ -37,6 +37,8 @@ func addInternalCommands(rootCmd *cobra.Command) {
 		buildUpdatespellCommand().CobraCommand(runUpdatespellCommand))
 	rootCmd.AddCommand(
 		buildRemovespellCommand().CobraCommand(runRemovespellCommand))
+	rootCmd.AddCommand(
+		buildUpdateCommand().CobraCommand(runUpdateCommand))
 }
 
 func init() {

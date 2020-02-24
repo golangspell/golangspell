@@ -11,7 +11,6 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/danilovalente/golangspell-core/appcontext"
 	"github.com/danilovalente/golangspell/domain"
 )
 
@@ -109,10 +108,10 @@ func (renderer *Renderer) RenderPath(sourcePath string, info os.FileInfo, err er
 }
 
 //RenderTemplate renders all templates in the template directory providing the respective variables
+//spell: specifies the spell which contains the command
 //commandName: specifies the name of the command for which the template will be rendered
 //variables: specifies the list of variables (value) which should be provided for rendering each file (key)
-func (renderer *Renderer) RenderTemplate(commandName string, globalVariables map[string]interface{}, specificVariables map[string]map[string]interface{}) error {
-	spell := appcontext.Current.Get(appcontext.Spell).(domain.Spell)
+func (renderer *Renderer) RenderTemplate(spell domain.Spell, commandName string, globalVariables map[string]interface{}, specificVariables map[string]map[string]interface{}) error {
 	spellInstallation := domain.GolangLibrary{Name: spell.Name, URL: spell.URL}
 	renderer.rootTemplatePath = fmt.Sprintf("%s/templates/%s", spellInstallation.SrcPath(), commandName)
 	if nil == globalVariables {
