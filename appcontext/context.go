@@ -1,5 +1,7 @@
 package appcontext
 
+import "sync"
+
 //List of consts containing the names of the available componentes in the Application Context - appcontext.Current
 const (
 	Config           = "Config"
@@ -30,7 +32,8 @@ func (componentInfo *ComponentInfo) Get() Component {
 
 //ApplicationContext is the type defining a map of Components
 type ApplicationContext struct {
-	components map[string]*ComponentInfo
+	components     map[string]*ComponentInfo
+	componentMutex sync.Mutex
 }
 
 //Current keeps all components available, initialized in the application startup
@@ -38,11 +41,17 @@ var Current ApplicationContext
 
 //Add a component By Name
 func (applicationContext *ApplicationContext) Add(componentName string, componentInitializerFunction ComponentInitializerFunction) {
+	applicationContext.componentMutex.Lock()
+	defer applicationContext.componentMutex.Unlock()
+
 	applicationContext.components[componentName] = &ComponentInfo{Initializer: componentInitializerFunction}
 }
 
 //Get a component By Name
 func (applicationContext *ApplicationContext) Get(componentName string) Component {
+	applicationContext.componentMutex.Lock()
+	defer applicationContext.componentMutex.Unlock()
+
 	if applicationContext.components[componentName] == nil {
 		return nil
 	}
@@ -51,11 +60,17 @@ func (applicationContext *ApplicationContext) Get(componentName string) Componen
 
 //Delete a component By Name
 func (applicationContext *ApplicationContext) Delete(componentName string) {
+	applicationContext.componentMutex.Lock()
+	defer applicationContext.componentMutex.Unlock()
+
 	delete(applicationContext.components, componentName)
 }
 
 //Count returns the count of components registered
 func (applicationContext *ApplicationContext) Count() int {
+	applicationContext.componentMutex.Lock()
+	defer applicationContext.componentMutex.Unlock()
+
 	return len(applicationContext.components)
 }
 
