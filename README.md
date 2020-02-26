@@ -41,6 +41,7 @@ Run the following command to install the tool in your GOPATH:
 
 go get github.com/danilovalente/golangspell
 
+
 Add to your O.S. the following Path:
 
 [YOUR GOPATH]/bin
