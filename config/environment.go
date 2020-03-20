@@ -3,7 +3,7 @@ package config
 import (
 	"fmt"
 
-	"github.com/mitchellh/go-homedir"
+	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 )
 
@@ -43,12 +43,12 @@ func GetHomeDir() string {
 }
 
 //ConfigFilePath contains the path of the config file
-var ConfigFilePath = fmt.Sprintf("%s/%s", GetGolangspellHome(), configFileName)
+var ConfigFilePath = fmt.Sprintf("%s%s%s", GetGolangspellHome(), PlatformSeparator, configFileName)
 
 //GetGolangspellHome - platform agnostic
 func GetGolangspellHome() string {
 	home := GetHomeDir()
-	return fmt.Sprintf("%s/.golangspell", home)
+	return fmt.Sprintf("%s%s.golangspell", home, PlatformSeparator)
 }
 
 func init() {
@@ -57,6 +57,6 @@ func init() {
 	viper.BindEnv("LogLevel", "LOG_LEVEL")
 	viper.SetDefault("LogLevel", "INFO")
 	viper.BindEnv("GoPath", "GOPATH")
-	viper.SetDefault("GoPath", fmt.Sprintf("%s/go", GetHomeDir()))
+	viper.SetDefault("GoPath", fmt.Sprintf("%s%sgo", GetHomeDir(), PlatformSeparator))
 	viper.Unmarshal(&Values)
 }
