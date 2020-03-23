@@ -11,6 +11,7 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/danilovalente/golangspell/config"
 	"github.com/danilovalente/golangspell/domain"
 )
 
@@ -113,7 +114,7 @@ func (renderer *Renderer) RenderPath(sourcePath string, info os.FileInfo, err er
 //variables: specifies the list of variables (value) which should be provided for rendering each file (key)
 func (renderer *Renderer) RenderTemplate(spell domain.Spell, commandName string, globalVariables map[string]interface{}, specificVariables map[string]map[string]interface{}) error {
 	spellInstallation := domain.GolangLibrary{Name: spell.Name, URL: spell.URL}
-	renderer.rootTemplatePath = fmt.Sprintf("%s/templates/%s", spellInstallation.SrcPath(), commandName)
+	renderer.rootTemplatePath = fmt.Sprintf("%s%stemplates%s%s", spellInstallation.SrcPath(), config.PlatformSeparator, config.PlatformSeparator, commandName)
 	if nil == globalVariables {
 		renderer.globalVariables = make(map[string]interface{}, 0)
 	} else {
