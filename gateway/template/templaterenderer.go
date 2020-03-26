@@ -55,7 +55,18 @@ func (renderer *Renderer) RenderFile(sourcePath string, info os.FileInfo) error 
 	fileName := filepath.Base(sourcePath)
 	fmt.Printf("Rendering template: %s\n", fileName)
 	allVariables := renderer.mergeVariables(fileName)
-	destinationPath := strings.ReplaceAll(strings.ReplaceAll(sourcePath, renderer.rootTemplatePath, renderer.currentPath), ".got", ".go")
+	rootTemplatePath := renderer.rootTemplatePath
+	currentPath := renderer.currentPath
+	sourcePathScaped := sourcePath
+	if config.PlatformIsWindows {
+		rootTemplatePath = strings.ReplaceAll(rootTemplatePath, "\\", "/")
+		currentPath = strings.ReplaceAll(currentPath, "\\", "/")
+		sourcePathScaped = strings.ReplaceAll(sourcePathScaped, "\\", "/")
+	}
+	destinationPath := strings.ReplaceAll(strings.ReplaceAll(sourcePathScaped, rootTemplatePath, currentPath), ".got", ".go")
+	if config.PlatformIsWindows {
+		destinationPath = strings.ReplaceAll(destinationPath, "/", "\\")
+	}
 	fmt.Printf("destinationPath: %s\n", destinationPath)
 	if destFileInfo, err := os.Stat(destinationPath); err == nil && !destFileInfo.IsDir() {
 		err := renderer.backupExistingCode(destinationPath)
