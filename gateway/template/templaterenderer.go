@@ -130,6 +130,7 @@ func (renderer *Renderer) RenderTemplate(spell domain.Spell, commandName string,
 		return err
 	}
 	renderer.currentPath = currentPath
+	fmt.Printf("renderer.currentPath: %s\n", renderer.currentPath)
 	err = filepath.Walk(renderer.rootTemplatePath, renderer.RenderPath)
 	return err
 }
