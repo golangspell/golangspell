@@ -56,6 +56,7 @@ func (renderer *Renderer) RenderFile(sourcePath string, info os.FileInfo) error 
 	fmt.Printf("Rendering template: %s\n", fileName)
 	allVariables := renderer.mergeVariables(fileName)
 	destinationPath := strings.ReplaceAll(strings.ReplaceAll(sourcePath, renderer.rootTemplatePath, renderer.currentPath), ".got", ".go")
+	fmt.Printf("destinationPath: %s\n", destinationPath)
 	if destFileInfo, err := os.Stat(destinationPath); err == nil && !destFileInfo.IsDir() {
 		err := renderer.backupExistingCode(destinationPath)
 		if err != nil {
