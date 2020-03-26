@@ -57,19 +57,25 @@ func (renderer *Renderer) RenderFile(sourcePath string, info os.FileInfo) error 
 	allVariables := renderer.mergeVariables(fileName)
 	rootTemplatePath := renderer.rootTemplatePath
 	currentPath := renderer.currentPath
-	sourcePathScaped := sourcePath
+	sourcePathEscaped := sourcePath
 	if config.PlatformIsWindows {
 		rootTemplatePath = strings.ReplaceAll(rootTemplatePath, "\\", "/")
 		currentPath = strings.ReplaceAll(currentPath, "\\", "/")
-		sourcePathScaped = strings.ReplaceAll(sourcePathScaped, "\\", "/")
+		sourcePathEscaped = strings.ReplaceAll(sourcePathEscaped, "\\", "/")
 	}
-	destinationPath := strings.ReplaceAll(strings.ReplaceAll(sourcePathScaped, rootTemplatePath, currentPath), ".got", ".go")
+	destinationPath := strings.ReplaceAll(strings.ReplaceAll(sourcePathEscaped, rootTemplatePath, currentPath), ".got", ".go")
 	if config.PlatformIsWindows {
 		destinationPath = strings.ReplaceAll(destinationPath, "/", "\\")
 	}
-	fmt.Printf("destinationPath: %s\n", destinationPath)
 	if destFileInfo, err := os.Stat(destinationPath); err == nil && !destFileInfo.IsDir() {
 		err := renderer.backupExistingCode(destinationPath)
+		if err != nil {
+			return err
+		}
+	}
+	directory := filepath.Dir(destinationPath)
+	if _, err := os.Stat(directory); os.IsNotExist(err) {
+		err = os.MkdirAll(directory, 0755)
 		if err != nil {
 			return err
 		}
@@ -142,7 +148,6 @@ func (renderer *Renderer) RenderTemplate(spell domain.Spell, commandName string,
 		return err
 	}
 	renderer.currentPath = currentPath
-	fmt.Printf("renderer.currentPath: %s\n", renderer.currentPath)
 	err = filepath.Walk(renderer.rootTemplatePath, renderer.RenderPath)
 	return err
 }
