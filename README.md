@@ -1,10 +1,10 @@
 # golangspell
 
-Golang Spell is a productivity tool for building Microservices using Golang
+Golang Spell is a productivity platform for building Microservices using Golang
 
 Golang Spell makes it possible to build lightning fast Microservices in Go 
 in an easy and productive way.
-Welcome to the tool that will kick out the boilerplate code 
+Welcome to the platform that will kick out the boilerplate code 
 and drive you through new amazing possibilities
 
 ## Dependency Management
