@@ -50,5 +50,5 @@ Add to your O.S. the following Path:
 
 The command *golangspell help* shows all available options. To start a new project, the starting point is the command init (to know more run *golangspell help init*)
 
-![alt text](https://github.com/danilovalente/golangspell/blob/master/img/gopher_spell.png?raw=true)
+![Spell Gopher](http://derobgfa8qo3s.cloudfront.net/images/gopher_spell.png)
 
