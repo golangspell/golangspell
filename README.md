@@ -21,34 +21,32 @@ Further details can be found here: [The Clean Architecture](https://8thlight.com
 
 Following the Clean Architecture principles, the generated applications will be structured in accordance with the following package structure:
 
-* root package: Main package, containing all the inner application packages. Defined like the AppName provided during the project initialization (init command)
-
-** appcontext: Application context with the core Component Management features needed to make it possible to provide a basic [Dependency Injection](https://www.martinfowler.com/articles/injection.html) mechanism
-
-** config: Configuration of the application environment
-
-** controller: Contains the REST controllers from the application.
-
-** domain: Contains all the domain entities.
-
-** gateway: Adapters/Clients for the external resources, like databases, streams, queues, http, cache...
-
-** usecase: Contains the implementation of the use cases which the application is supposed to provide.
+* `root package:` Main package, containing all the inner application packages. Defined like the AppName provided during the project initialization (init command)
+* `appcontext:` Application context with the core Component Management features needed to make it possible to provide a basic [Dependency Injection](https://www.martinfowler.com/articles/injection.html) mechanism
+* `config:` Configuration of the application environment
+* `controller:` Contains the REST controllers from the application.
+* `domain:` Contains all the domain entities.
+* `gateway:` Adapters/Clients for the external resources, like databases, streams, queues, http, cache...
+* `usecase:` Contains the implementation of the use cases which the application is supposed to provide.
 
 ## Instalation
 
 Run the following command to install the tool in your GOPATH:
 
+```bash
 go get github.com/danilovalente/golangspell
-
+```
 
 Add to your O.S. the following Path:
 
-[YOUR GOPATH]/bin
+```bash
+$GOPATH/bin
+```
 
 ## Usage
 
-The command *golangspell help* shows all available options. To start a new project, the starting point is the command init (to know more run *golangspell help init*)
+The command **golangspell help** shows all available options.  
+To start a new project, the starting point is the command init (to know more run **golangspell help init**)
 
 ![Spell Gopher](http://derobgfa8qo3s.cloudfront.net/images/gopher_spell.png)
 
