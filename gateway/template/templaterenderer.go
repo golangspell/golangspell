@@ -35,7 +35,8 @@ func (renderer *Renderer) mergeVariables(fileName string) map[string]interface{}
 	return allVariables
 }
 
-func (renderer *Renderer) backupExistingCode(sourcePath string) error {
+//BackupExistingCode make a copy of the changed file
+func (renderer *Renderer) BackupExistingCode(sourcePath string) error {
 	source, err := os.Open(sourcePath)
 	if err != nil {
 		return err
@@ -68,7 +69,7 @@ func (renderer *Renderer) RenderFile(sourcePath string, info os.FileInfo) error 
 		destinationPath = strings.ReplaceAll(destinationPath, "/", "\\")
 	}
 	if destFileInfo, err := os.Stat(destinationPath); err == nil && !destFileInfo.IsDir() {
-		err := renderer.backupExistingCode(destinationPath)
+		err := renderer.BackupExistingCode(destinationPath)
 		if err != nil {
 			return err
 		}
