@@ -17,16 +17,12 @@ type ComponentInitializerFunction func() Component
 
 //ComponentInfo holds the function to lazy initialize the component and the instance created following the singleton pattern
 type ComponentInfo struct {
-	Initializer    ComponentInitializerFunction
-	Instance       Component
-	componentMutex sync.Mutex
+	Initializer ComponentInitializerFunction
+	Instance    Component
 }
 
 //Get s the instance. If it is not created, creates and stores it to the next calls
 func (componentInfo *ComponentInfo) Get() Component {
-	componentInfo.componentMutex.Lock()
-	defer componentInfo.componentMutex.Unlock()
-
 	if componentInfo.Instance == nil {
 		componentInfo.Instance = componentInfo.Initializer()
 	}

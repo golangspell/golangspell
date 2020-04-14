@@ -14,7 +14,10 @@ import (
 func (repo ConfigRepository) ensureConfigPath() {
 	golangspellhome := config.GetGolangspellHome()
 	if _, err := os.Stat(golangspellhome); os.IsNotExist(err) {
-		os.Mkdir(golangspellhome, 0700)
+		mkdirerr := os.Mkdir(golangspellhome, 0700)
+		if mkdirerr != nil {
+			panic(mkdirerr)
+		}
 	}
 }
 
@@ -24,7 +27,10 @@ func (repo ConfigRepository) ensureConfigFile() {
 		return
 	}
 	config := domain.BuildDefaultConfig()
-	repo.Save(&config)
+	_, saveerr := repo.Save(&config)
+	if saveerr != nil {
+		panic(saveerr)
+	}
 }
 
 //ConfigRepository is the filesystem implementation of the repository for domain.ConfigRepository

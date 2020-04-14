@@ -52,11 +52,11 @@ func GetGolangspellHome() string {
 }
 
 func init() {
-	viper.BindEnv("TestRun", "TESTRUN")
+	_ = viper.BindEnv("TestRun", "TESTRUN")
 	viper.SetDefault("TestRun", false)
-	viper.BindEnv("LogLevel", "LOG_LEVEL")
+	_ = viper.BindEnv("LogLevel", "LOG_LEVEL")
 	viper.SetDefault("LogLevel", "INFO")
-	viper.BindEnv("GoPath", "GOPATH")
+	_ = viper.BindEnv("GoPath", "GOPATH")
 	viper.SetDefault("GoPath", fmt.Sprintf("%s%sgo", GetHomeDir(), PlatformSeparator))
-	viper.Unmarshal(&Values)
+	_ = viper.Unmarshal(&Values)
 }

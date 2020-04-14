@@ -27,7 +27,10 @@ func RemoveSpell(spellName string, config *domain.Config) error {
 
 	delete(config.Spellbook, spellName)
 	repo := domain.GetConfigRepository()
-	repo.Save(config)
+	_, err = repo.Save(config)
+	if err != nil {
+		return fmt.Errorf("An error occurred while trying to update the spell configuration: %s", err.Error())
+	}
 
 	return nil
 }

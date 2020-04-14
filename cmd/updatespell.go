@@ -33,7 +33,10 @@ golangspell updatespell [url] [name]`)
 	}
 	golangLibrary := domain.GolangLibrary{URL: args[0], Name: args[1]}
 	config := domain.GetConfig()
-	usecase.RemoveSpell(golangLibrary.Name, config)
+	err := usecase.RemoveSpell(golangLibrary.Name, config)
+	if err != nil {
+		fmt.Printf("An error occurred while trying to remove the Spell's old version. Message: %s\n", err.Error())
+	}
 	usecase.AddOrUpdateSpell(&golangLibrary, config)
 	fmt.Printf("Spell %s updated.\n", golangLibrary.Name)
 }

@@ -22,7 +22,10 @@ golangspell version [Spell name]`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 1 {
 			spellConfig := domain.GetConfig()
-			usecase.ShowSpellVersion(&domain.GolangLibrary{Name: args[0]}, spellConfig)
+			err := usecase.ShowSpellVersion(&domain.GolangLibrary{Name: args[0]}, spellConfig)
+			if err != nil {
+				fmt.Println(err.Error())
+			}
 		} else {
 			fmt.Printf("Golang Spell v%s -- HEAD\n", config.Version)
 		}

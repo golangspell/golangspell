@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/danilovalente/golangspell/domain"
 	"github.com/danilovalente/golangspell/usecase"
 	"github.com/spf13/cobra"
@@ -19,5 +21,8 @@ golangspell update
 }
 
 func runUpdateCommand(cmd *cobra.Command, args []string) {
-	usecase.Update()
+	err := usecase.Update()
+	if err != nil {
+		fmt.Printf("An error occurred while trying to update the golangspell tool. Message: %s\n", err.Error())
+	}
 }

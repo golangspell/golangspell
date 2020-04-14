@@ -42,12 +42,15 @@ func loadSpellDescription(golangLibrary *domain.GolangLibrary, config *domain.Co
 		panic(err)
 	}
 	if nil == config.Spellbook {
-		config.Spellbook = make(map[string]*domain.Spell, 0)
+		config.Spellbook = make(map[string]*domain.Spell)
 	}
 	spell.Installed = true
 	config.Spellbook[spell.Name] = &spell
 	repo := domain.GetConfigRepository()
-	repo.Save(config)
+	_, err = repo.Save(config)
+	if err != nil {
+		panic(err)
+	}
 	fmt.Printf("Spell %s description loaded\n", golangLibrary.Name)
 }
 

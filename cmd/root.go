@@ -51,8 +51,8 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&config.UserLicense, "license", "l", "Apache", "name of license for the project")
 	rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
 	addInternalCommands(rootCmd)
-	viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
-	viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
+	_ = viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
+	_ = viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
 	viper.SetDefault("config", config.DefautConfigFile)
 	viper.SetDefault("license", "Apache")
 }

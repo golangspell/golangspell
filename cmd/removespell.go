@@ -34,7 +34,7 @@ golangspell removespell [name]`)
 	config := domain.GetConfig()
 	err := usecase.RemoveSpell(spellName, config)
 	if err != nil {
-		fmt.Printf(err.Error())
+		fmt.Println(err.Error())
 	} else {
 		fmt.Printf("Spell %s removed.\n", spellName)
 	}
