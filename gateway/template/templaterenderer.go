@@ -97,6 +97,9 @@ func (renderer *Renderer) RenderFile(sourcePath string, info os.FileInfo) error 
 		}
 	}
 	directory := filepath.Dir(destinationPath)
+	if directory == renderer.stringTemplatePath {
+		return nil
+	}
 	if _, err := os.Stat(directory); os.IsNotExist(err) {
 		err = os.MkdirAll(directory, 0755)
 		if err != nil {
