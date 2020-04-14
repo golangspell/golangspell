@@ -56,7 +56,10 @@ func (renderer *Renderer) BackupExistingCode(sourcePath string) error {
 }
 
 //RenderString processing the provided template source file, using the provided variables
-func (renderer *Renderer) RenderString(stringTemplateFileName string, variables map[string]interface{}) (string, error) {
+func (renderer *Renderer) RenderString(spell domain.Spell, commandName string, stringTemplateFileName string, variables map[string]interface{}) (string, error) {
+	spellInstallation := domain.GolangLibrary{Name: spell.Name, URL: spell.URL}
+	renderer.rootTemplatePath = fmt.Sprintf("%s%stemplates%s%s", spellInstallation.SrcPath(), config.PlatformSeparator, config.PlatformSeparator, commandName)
+	renderer.stringTemplatePath = fmt.Sprintf("%s%s%s", renderer.rootTemplatePath, config.PlatformSeparator, stringtemplatesdirectory)
 	tmpl, err := template.New(stringTemplateFileName).ParseFiles(fmt.Sprintf("%s%s%s", renderer.stringTemplatePath, config.PlatformSeparator, stringTemplateFileName))
 	if err != nil {
 		return "", err
