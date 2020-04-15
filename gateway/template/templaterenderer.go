@@ -97,7 +97,7 @@ func (renderer *Renderer) RenderFile(sourcePath string, info os.FileInfo) error 
 		}
 	}
 	directory := filepath.Dir(destinationPath)
-	if directory == renderer.stringTemplatePath {
+	if strings.Contains(directory, stringtemplatesdirectory) {
 		return nil
 	}
 	if _, err := os.Stat(directory); os.IsNotExist(err) {
@@ -125,6 +125,9 @@ func (renderer *Renderer) RenderFile(sourcePath string, info os.FileInfo) error 
 }
 
 func (renderer *Renderer) createDirectory(sourcePath string) error {
+	if strings.Contains(sourcePath, stringtemplatesdirectory) {
+		return nil
+	}
 	if _, err := os.Stat(sourcePath); os.IsNotExist(err) {
 		return os.Mkdir(sourcePath, 0700)
 	}
