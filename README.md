@@ -51,6 +51,7 @@ To start a new project, the starting point is the command init (to know more run
 ![Spell Gopher](http://derobgfa8qo3s.cloudfront.net/images/gopher_spell.png)
 
 ## Version History
+* 0.3.5 Added (minor) feature for getting the current module and adjusted render
 * 0.3.4 Template to string adjusted
 * 0.3.3 Template to string adjusted
 * 0.3.2 Added template to string (minor) feature in the renderer, lint checked and code adjusted
