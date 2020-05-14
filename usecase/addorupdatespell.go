@@ -3,7 +3,7 @@ package usecase
 import (
 	"fmt"
 
-	"github.com/danilovalente/golangspell/domain"
+	"github.com/golangspell/golangspell/domain"
 )
 
 //AddOrUpdateSpell to the Golangspell platform

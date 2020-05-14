@@ -5,7 +5,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/danilovalente/golangspell/domain"
+	"github.com/golangspell/golangspell/domain"
 )
 
 //ShowSpellVersion shows the version of an specified Spell

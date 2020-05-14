@@ -3,8 +3,8 @@ package domain
 import (
 	"strings"
 
-	"github.com/danilovalente/golangspell/appcontext"
-	"github.com/danilovalente/golangspell/config"
+	"github.com/golangspell/golangspell/appcontext"
+	"github.com/golangspell/golangspell/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
@@ -81,7 +81,7 @@ func BuildDefaultConfig() Config {
 		License: config.UserLicense,
 		DefaultSpells: []GolangLibrary{
 			{
-				URL: "https://github.com/danilovalente/golangspell-core", Name: "golangspell-core",
+				URL: "https://github.com/golangspell/golangspell-core", Name: "golangspell-core",
 			},
 		},
 	}

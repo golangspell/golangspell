@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/danilovalente/golangspell/config"
+	"github.com/golangspell/golangspell/config"
 )
 
 //GolangLibrary contains the deployment info of an installed Golang Library

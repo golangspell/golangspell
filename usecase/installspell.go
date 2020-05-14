@@ -5,7 +5,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/danilovalente/golangspell/domain"
+	"github.com/golangspell/golangspell/domain"
 )
 
 //InstallSpell using go get

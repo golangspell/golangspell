@@ -10,7 +10,7 @@ and drive you through new amazing possibilities
 ## Dependency Management
 
 The project is using [Go Modules](https://blog.golang.org/using-go-modules) for dependency management
-Module: github.com/danilovalente/golangspell
+Module: github.com/golangspell/golangspell
 
 ## Architectural Model
 
@@ -34,7 +34,7 @@ Following the Clean Architecture principles, the generated applications will be 
 Run the following command to install the tool in your GOPATH:
 
 ```bash
-go get github.com/danilovalente/golangspell
+go get github.com/golangspell/golangspell
 ```
 
 Add to your O.S. the following Path:
@@ -50,10 +50,5 @@ To start a new project, the starting point is the command init (to know more run
 
 ![Spell Gopher](http://derobgfa8qo3s.cloudfront.net/images/gopher_spell.png)
 
-## Version History
-* 0.3.6 Fixed version tracking
-* 0.3.5 Added (minor) feature for getting the current module and adjusted render
-* 0.3.4 Template to string adjusted
-* 0.3.3 Template to string adjusted
-* 0.3.2 Added template to string (minor) feature in the renderer, lint checked and code adjusted
-* 0.3.1 Exposed Backup feature in the renderer
+## CHANGELOG
+[Changelog](CHANGELOG.md)

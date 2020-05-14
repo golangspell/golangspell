@@ -3,8 +3,8 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/danilovalente/golangspell/appcontext"
-	"github.com/danilovalente/golangspell/config"
+	"github.com/golangspell/golangspell/appcontext"
+	"github.com/golangspell/golangspell/config"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

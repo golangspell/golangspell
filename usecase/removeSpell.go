@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/danilovalente/golangspell/domain"
+	"github.com/golangspell/golangspell/domain"
 )
 
 //RemoveSpell to the Golangspell platform

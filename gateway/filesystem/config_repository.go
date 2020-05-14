@@ -6,9 +6,9 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/danilovalente/golangspell/appcontext"
-	"github.com/danilovalente/golangspell/config"
-	"github.com/danilovalente/golangspell/domain"
+	"github.com/golangspell/golangspell/appcontext"
+	"github.com/golangspell/golangspell/config"
+	"github.com/golangspell/golangspell/domain"
 )
 
 func (repo ConfigRepository) ensureConfigPath() {

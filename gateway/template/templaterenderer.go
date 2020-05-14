@@ -12,8 +12,8 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/danilovalente/golangspell/config"
-	"github.com/danilovalente/golangspell/domain"
+	"github.com/golangspell/golangspell/config"
+	"github.com/golangspell/golangspell/domain"
 )
 
 const stringtemplatesdirectory = "notrenderedstringtemplates"

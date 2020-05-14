@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"github.com/danilovalente/golangspell/usecase"
+	"github.com/golangspell/golangspell/usecase"
 
-	"github.com/danilovalente/golangspell/cmd"
-	_ "github.com/danilovalente/golangspell/gateway/filesystem"
+	"github.com/golangspell/golangspell/cmd"
+	_ "github.com/golangspell/golangspell/gateway/filesystem"
 )
 
 func main() {

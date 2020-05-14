@@ -4,7 +4,7 @@
   "spellbook": {
     "core": {
       "name": "core",
-      "url": "https://github.com/danilovalente/golangspell-core",
+      "url": "https://github.com/golangspell/golangspell-core",
       "commands": {
         "init": {
           "name": "init",

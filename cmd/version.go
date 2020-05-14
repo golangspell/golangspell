@@ -3,9 +3,9 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/danilovalente/golangspell/config"
-	"github.com/danilovalente/golangspell/domain"
-	"github.com/danilovalente/golangspell/usecase"
+	"github.com/golangspell/golangspell/config"
+	"github.com/golangspell/golangspell/domain"
+	"github.com/golangspell/golangspell/usecase"
 	"github.com/spf13/cobra"
 )
 

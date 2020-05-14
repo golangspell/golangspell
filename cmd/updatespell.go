@@ -3,8 +3,8 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/danilovalente/golangspell/domain"
-	"github.com/danilovalente/golangspell/usecase"
+	"github.com/golangspell/golangspell/domain"
+	"github.com/golangspell/golangspell/usecase"
 	"github.com/spf13/cobra"
 )
 
@@ -14,7 +14,7 @@ func buildUpdatespellCommand() *domain.Command {
 		ShortDescription: "The updatespell command updates a Spell (plugin) in the golangspell tool",
 		LongDescription: `The updatespell command updates a Spell (plugin) in the golangspell tool
 Args:
-url: URL to the Spell's code repository (required). Example: https://github.com/danilovalente/golangspell-core"
+url: URL to the Spell's code repository (required). Example: https://github.com/golangspell/golangspell-core"
 name: Spell name (required). Example: golangspell-core
 
 Syntax: 
