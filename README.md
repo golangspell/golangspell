@@ -48,6 +48,11 @@ $GOPATH/bin
 The command **golangspell help** shows all available options.  
 To start a new project, the starting point is the command init (to know more run **golangspell help init**)
 
+Find more insights on how to use **golangspell** here:
+
+* [Golangspell Wiki](https://github.com/golangspell/golangspell/wiki)
+* [Golangspell Article](https://medium.com/golangspell-go-fast-small-and-productive/go-fast-small-and-productive-with-golangspell-be193c65a382)
+
 ![Spell Gopher](http://derobgfa8qo3s.cloudfront.net/images/gopher_spell.png)
 
 ## CHANGELOG
