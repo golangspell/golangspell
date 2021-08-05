@@ -2,9 +2,9 @@ package config
 
 import (
 	"fmt"
+	"os"
 
 	homedir "github.com/mitchellh/go-homedir"
-	"github.com/spf13/viper"
 )
 
 const (
@@ -51,12 +51,16 @@ func GetGolangspellHome() string {
 	return fmt.Sprintf("%s%s.golangspell", home, PlatformSeparator)
 }
 
+// GetEnv gets an environment variable content or a default value
+func GetEnv(key, defaultValue string) string {
+	if value, ok := os.LookupEnv(key); ok {
+		return value
+	}
+	return defaultValue
+}
+
 func init() {
-	_ = viper.BindEnv("TestRun", "TESTRUN")
-	viper.SetDefault("TestRun", false)
-	_ = viper.BindEnv("LogLevel", "LOG_LEVEL")
-	viper.SetDefault("LogLevel", "INFO")
-	_ = viper.BindEnv("GoPath", "GOPATH")
-	viper.SetDefault("GoPath", fmt.Sprintf("%s%sgo", GetHomeDir(), PlatformSeparator))
-	_ = viper.Unmarshal(&Values)
+	Values.TestRun = GetEnv("TESTRUN", "false") == "true"
+	Values.GoPath = GetEnv("GOPATH", fmt.Sprintf("%s%sgo", GetHomeDir(), PlatformSeparator))
+	Values.LogLevel = GetEnv("LOG_LEVEL", "INFO")
 }

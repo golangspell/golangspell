@@ -5,9 +5,7 @@ import (
 
 	"github.com/golangspell/golangspell/appcontext"
 	"github.com/golangspell/golangspell/config"
-	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 //GetRootCmd lazily loads a RootCmd to start the CLI application
@@ -49,33 +47,8 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&config.CfgFile, "config", "", fmt.Sprintf("config file (default is %s)", config.DefautConfigFile))
 	rootCmd.PersistentFlags().StringVarP(&config.Author, "author", "a", "", "author name for copyright attribution")
 	rootCmd.PersistentFlags().StringVarP(&config.UserLicense, "license", "l", "Apache", "name of license for the project")
-	rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
 	addInternalCommands(rootCmd)
-	_ = viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
-	_ = viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
-	viper.SetDefault("config", config.DefautConfigFile)
-	viper.SetDefault("license", "Apache")
 }
 
 func initConfig() {
-	if config.CfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(config.CfgFile)
-	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		if err != nil {
-			panic(err)
-		}
-
-		// Search config in home directory with name ".cobra" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".golangspell")
-	}
-
-	viper.AutomaticEnv()
-
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
-	}
 }
