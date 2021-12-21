@@ -51,7 +51,8 @@ To start a new project, the starting point is the command init (to know more run
 Find more insights on how to use **golangspell** here:
 
 * [Golangspell Wiki](https://github.com/golangspell/golangspell/wiki)
-* [Golangspell Article](https://medium.com/golangspell-go-fast-small-and-productive/go-fast-small-and-productive-with-golangspell-be193c65a382)
+* [Golangspell Article - Medium](https://medium.com/golangspell-go-fast-small-and-productive/go-fast-small-and-productive-with-golangspell-be193c65a382)
+* [Golangspell Article - HackerNoon](https://hackernoon.com/go-fast-small-and-productive-with-golangspell-d0163zqk)
 
 <p align="center">
     <img src="https://github.com/golangspell/golangspell/blob/master/img/gopher_spell.png" width="350" alt="Golang Spell logo"/>
