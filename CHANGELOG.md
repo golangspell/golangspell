@@ -7,10 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.4.4] - 2022-07-26
+## [0.4.5] - 2022-07-26
 
 ### Changed
-- Adjusted update code
+- Updated logic for handling new directory structure of go mod 
 
 ## [0.4.3] - 2022-07-26
 

@@ -15,7 +15,18 @@ func RemoveSpell(spellName string, config *domain.Config) error {
 	spell := config.Spellbook[spellName]
 	fmt.Printf("Removing Spell %s\n", spellName)
 	library := domain.GolangLibrary{Name: spell.Name, URL: spell.URL}
-	err := os.RemoveAll(library.SrcPath())
+
+	err := os.RemoveAll(library.ModPath())
+	if err != nil {
+		return fmt.Errorf("An error occurred while trying to remove the spell: %s", err.Error())
+	}
+
+	err = os.RemoveAll(library.CachePath())
+	if err != nil {
+		return fmt.Errorf("An error occurred while trying to remove the spell: %s", err.Error())
+	}
+
+	err = os.RemoveAll(library.SrcPath())
 	if err != nil {
 		return fmt.Errorf("An error occurred while trying to remove the spell: %s", err.Error())
 	}

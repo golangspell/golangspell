@@ -50,6 +50,7 @@ type Spell struct {
 	URL       string              `json:"url"`
 	Commands  map[string]*Command `json:"commands"`
 	Installed bool                `json:"installed"`
+	Version   string              `json:"version"`
 }
 
 //URLToPackage returns the package name referenced by the URL

@@ -12,7 +12,18 @@ import (
 func Update() error {
 	fmt.Printf("updating GolangSpell ...\n")
 	library := domain.GolangLibrary{Name: "golangspell", URL: "https://github.com/golangspell/golangspell"}
-	err := os.RemoveAll(library.SrcPath())
+
+	err := os.RemoveAll(library.ModPath())
+	if err != nil {
+		return fmt.Errorf("An error occurred while trying to remove the spell: %s", err.Error())
+	}
+
+	err = os.RemoveAll(library.CachePath())
+	if err != nil {
+		return fmt.Errorf("An error occurred while trying to remove the spell: %s", err.Error())
+	}
+
+	err = os.RemoveAll(library.SrcPath())
 	if err != nil {
 		return fmt.Errorf("An error occurred while trying to remove the spell: %s", err.Error())
 	}
