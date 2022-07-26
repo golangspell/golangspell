@@ -34,7 +34,7 @@ Following the Clean Architecture principles, the generated applications will be 
 Run the following command to install the tool in your GOPATH:
 
 ```bash
-go get github.com/golangspell/golangspell
+go install github.com/golangspell/golangspell@latest
 ```
 
 Add to your O.S. the following Path:
