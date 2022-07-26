@@ -18,7 +18,7 @@ func InstallSpell(golangLibrary *domain.GolangLibrary, config *domain.Config) er
 	execCmd.Stderr = os.Stderr
 	err := execCmd.Run()
 	if err != nil {
-		return fmt.Errorf("go install %s failed with %s", golangLibrary.URLToPackage(), err.Error())
+		return fmt.Errorf("go install %s failed with %s", golangLibrary.URLToPackage()+"@latest", err.Error())
 	}
 	fmt.Printf("Spell %s installed!\n", golangLibrary.Name)
 	return nil

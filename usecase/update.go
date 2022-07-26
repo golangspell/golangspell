@@ -22,14 +22,14 @@ func Update() error {
 		return fmt.Errorf("An error occurred while trying to remove the spell: %s", err.Error())
 	}
 
-	execCmd := exec.Command("go", "get", "github.com/golangspell/golangspell")
+	execCmd := exec.Command("go", "install", "github.com/golangspell/golangspell@latest")
 	execCmd.Env = os.Environ()
 	execCmd.Env = append(execCmd.Env, "GO111MODULE=off")
 	execCmd.Stdout = os.Stdout
 	execCmd.Stderr = os.Stderr
 	err = execCmd.Run()
 	if err != nil {
-		return fmt.Errorf("go get %s failed with %s", "github.com/golangspell/golangspell", err.Error())
+		return fmt.Errorf("go install %s failed with %s", "github.com/golangspell/golangspell@latest", err.Error())
 	}
 	fmt.Printf("GolangSpell updated!\n")
 	return nil
