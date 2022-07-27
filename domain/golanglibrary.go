@@ -40,7 +40,7 @@ func (golangLibrary *GolangLibrary) InstalledVersion() (string, error) {
 //ModPath of the library
 func (golangLibrary *GolangLibrary) ModPath() string {
 	if version, err := golangLibrary.InstalledVersion(); err == nil {
-		return fmt.Sprintf("%s%spkg%smod%s%s", config.Values.GoPath, config.PlatformSeparator, config.PlatformSeparator, config.PlatformSeparator, golangLibrary.URLToPackage()+"@"+version)
+		return fmt.Sprintf("%s%spkg%smod%s%s", config.Values.GoPath, config.PlatformSeparator, config.PlatformSeparator, config.PlatformSeparator, golangLibrary.URLToPackage()+"@v"+version)
 	} else {
 		fmt.Println(err.Error())
 		return ""
