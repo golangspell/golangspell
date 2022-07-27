@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.6] - 2022-07-27
+
+### Changed
+- Adjusted template rederer to the new go mod directory structure
+
 ## [0.4.5] - 2022-07-26
 
 ### Changed

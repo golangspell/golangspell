@@ -58,7 +58,7 @@ func (renderer *Renderer) BackupExistingCode(sourcePath string) error {
 //RenderString processing the provided template source file, using the provided variables
 func (renderer *Renderer) RenderString(spell domain.Spell, commandName string, stringTemplateFileName string, variables map[string]interface{}) (string, error) {
 	spellInstallation := domain.GolangLibrary{Name: spell.Name, URL: spell.URL}
-	renderer.rootTemplatePath = fmt.Sprintf("%s%stemplates%s%s", spellInstallation.SrcPath(), config.PlatformSeparator, config.PlatformSeparator, commandName)
+	renderer.rootTemplatePath = renderer.GetRootTemplatePath(spellInstallation, commandName)
 	renderer.stringTemplatePath = fmt.Sprintf("%s%s%s", renderer.rootTemplatePath, config.PlatformSeparator, stringtemplatesdirectory)
 	tmpl, err := template.New(stringTemplateFileName).ParseFiles(fmt.Sprintf("%s%s%s", renderer.stringTemplatePath, config.PlatformSeparator, stringTemplateFileName))
 	if err != nil {
@@ -155,13 +155,32 @@ func (renderer *Renderer) RenderPath(sourcePath string, info os.FileInfo, err er
 	return renderer.RenderFile(sourcePath, info)
 }
 
+func (renderer *Renderer) directoryExists(directory string) bool {
+	if _, err := os.Stat(directory); !os.IsNotExist(err) {
+		return true
+	} else {
+		return false
+	}
+}
+
+func (renderer *Renderer) GetRootTemplatePath(spellInstallation domain.GolangLibrary, commandName string) string {
+	var templatesPath string
+	if renderer.directoryExists(spellInstallation.ModPath()) {
+		templatesPath = spellInstallation.ModPath()
+	} else {
+		templatesPath = spellInstallation.SrcPath()
+	}
+
+	return fmt.Sprintf("%s%stemplates%s%s", templatesPath, config.PlatformSeparator, config.PlatformSeparator, commandName)
+}
+
 //RenderTemplate renders all templates in the template directory providing the respective variables
 //spell: specifies the spell which contains the command
 //commandName: specifies the name of the command for which the template will be rendered
 //variables: specifies the list of variables (value) which should be provided for rendering each file (key)
 func (renderer *Renderer) RenderTemplate(spell domain.Spell, commandName string, globalVariables map[string]interface{}, specificVariables map[string]map[string]interface{}) error {
 	spellInstallation := domain.GolangLibrary{Name: spell.Name, URL: spell.URL}
-	renderer.rootTemplatePath = fmt.Sprintf("%s%stemplates%s%s", spellInstallation.SrcPath(), config.PlatformSeparator, config.PlatformSeparator, commandName)
+	renderer.rootTemplatePath = renderer.GetRootTemplatePath(spellInstallation, commandName)
 	renderer.stringTemplatePath = fmt.Sprintf("%s%s%s", renderer.rootTemplatePath, config.PlatformSeparator, stringtemplatesdirectory)
 	if nil == globalVariables {
 		renderer.globalVariables = make(map[string]interface{})

@@ -24,18 +24,25 @@ func (golangLibrary *GolangLibrary) SrcPath() string {
 }
 
 //ModPath of the library
-func (golangLibrary *GolangLibrary) ModPath() string {
+func (golangLibrary *GolangLibrary) InstalledVersion() (string, error) {
 	configRepo := GetConfigRepository()
 	currentConfig, err := configRepo.Get()
 	if err != nil {
-		fmt.Println(fmt.Errorf("An error occurred while trying to read the config file"))
-		return ""
+		return "", fmt.Errorf("an error occurred while trying to read the config file")
 	}
 	if librarySpell, ok := currentConfig.Spellbook[golangLibrary.Name]; ok {
-		version := librarySpell.Version
+		return librarySpell.Version, nil
+	} else {
+		return "", fmt.Errorf("Spell %s not found", golangLibrary.Name)
+	}
+}
+
+//ModPath of the library
+func (golangLibrary *GolangLibrary) ModPath() string {
+	if version, err := golangLibrary.InstalledVersion(); err == nil {
 		return fmt.Sprintf("%s%spkg%smod%s%s", config.Values.GoPath, config.PlatformSeparator, config.PlatformSeparator, config.PlatformSeparator, golangLibrary.URLToPackage()+"@"+version)
 	} else {
-		fmt.Println(fmt.Errorf("Spell %s not found", golangLibrary.Name))
+		fmt.Println(err.Error())
 		return ""
 	}
 }
