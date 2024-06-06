@@ -3,7 +3,6 @@ package filesystem
 import (
 	"encoding/json"
 	"io"
-	"io/ioutil"
 	"os"
 
 	"github.com/golangspell/golangspell/appcontext"
@@ -33,11 +32,11 @@ func (repo ConfigRepository) ensureConfigFile() {
 	}
 }
 
-//ConfigRepository is the filesystem implementation of the repository for domain.ConfigRepository
+// ConfigRepository is the filesystem implementation of the repository for domain.ConfigRepository
 type ConfigRepository struct {
 }
 
-//Get s the Config from the filesystem
+// Get s the Config from the filesystem
 func (repo ConfigRepository) Get() (*domain.Config, error) {
 	repo.ensureConfigFile()
 	configFile, err := os.Open(config.ConfigFilePath)
@@ -45,7 +44,7 @@ func (repo ConfigRepository) Get() (*domain.Config, error) {
 		panic(err)
 	}
 	defer configFile.Close()
-	configData, err := ioutil.ReadAll(configFile)
+	configData, err := io.ReadAll(configFile)
 	if err != nil {
 		panic(err)
 	}
@@ -58,7 +57,7 @@ func (repo ConfigRepository) Get() (*domain.Config, error) {
 	return &config, nil
 }
 
-//Save s the Config in the filesystem
+// Save s the Config in the filesystem
 func (repo ConfigRepository) Save(configEntity *domain.Config) (string, error) {
 	configData, err := json.MarshalIndent(configEntity, "", "  ")
 	if err != nil {
@@ -76,7 +75,7 @@ func (repo ConfigRepository) Save(configEntity *domain.Config) (string, error) {
 	return config.ConfigFilePath, file.Sync()
 }
 
-//InitConfigRepository lazily loads a ConfigRepository
+// InitConfigRepository lazily loads a ConfigRepository
 func InitConfigRepository() appcontext.Component {
 	return ConfigRepository{}
 }

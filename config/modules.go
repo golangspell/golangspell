@@ -2,15 +2,15 @@ package config
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"regexp"
 	"strings"
 )
 
-//GetModuleName from the current application based in the go.mod file
+// GetModuleName from the current application based in the go.mod file
 func GetModuleName(currentPath string) string {
 	filePath := fmt.Sprintf("%s%sgo.mod", currentPath, PlatformSeparator)
-	content, err := ioutil.ReadFile(filePath)
+	content, err := os.ReadFile(filePath)
 	if err != nil {
 		fmt.Printf("An error occurred while trying to create the new spell command. Error: %s\n", err.Error())
 		return ""
