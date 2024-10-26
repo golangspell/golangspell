@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.9] - 2024-10-26
+
+### Changed
+- Updated Golang version
+- Updated dependencies
+
 ## [0.4.8] - 2024-06-06
 
 ### Changed

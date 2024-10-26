@@ -18,7 +18,7 @@ import (
 
 const stringtemplatesdirectory = "notrenderedstringtemplates"
 
-//Renderer is reponsible for executing and rendering the code templates
+// Renderer is reponsible for executing and rendering the code templates
 type Renderer struct {
 	rootTemplatePath   string
 	stringTemplatePath string
@@ -27,7 +27,7 @@ type Renderer struct {
 	specificVariables  map[string]map[string]interface{}
 }
 
-//mergeVariables - specific overrides global if the name is the same
+// mergeVariables - specific overrides global if the name is the same
 func (renderer *Renderer) mergeVariables(fileName string) map[string]interface{} {
 	allVariables := make(map[string]interface{})
 	for key, val := range renderer.globalVariables {
@@ -39,7 +39,7 @@ func (renderer *Renderer) mergeVariables(fileName string) map[string]interface{}
 	return allVariables
 }
 
-//BackupExistingCode make a copy of the changed file
+// BackupExistingCode make a copy of the changed file
 func (renderer *Renderer) BackupExistingCode(sourcePath string) error {
 	source, err := os.Open(sourcePath)
 	if err != nil {
@@ -55,7 +55,7 @@ func (renderer *Renderer) BackupExistingCode(sourcePath string) error {
 	return err
 }
 
-//RenderString processing the provided template source file, using the provided variables
+// RenderString processing the provided template source file, using the provided variables
 func (renderer *Renderer) RenderString(spell domain.Spell, commandName string, stringTemplateFileName string, variables map[string]interface{}) (string, error) {
 	spellInstallation := domain.GolangLibrary{Name: spell.Name, URL: spell.URL}
 	renderer.rootTemplatePath = renderer.GetRootTemplatePath(spellInstallation, commandName)
@@ -73,7 +73,7 @@ func (renderer *Renderer) RenderString(spell domain.Spell, commandName string, s
 	return buf.String(), nil
 }
 
-//RenderFile renders a template file
+// RenderFile renders a template file
 func (renderer *Renderer) RenderFile(sourcePath string, info os.FileInfo) error {
 	fileName := filepath.Base(sourcePath)
 	fmt.Printf("Rendering template: %s\n", fileName)
@@ -134,7 +134,7 @@ func (renderer *Renderer) createDirectory(sourcePath string) error {
 	return nil
 }
 
-//RenderPath renders an object (file os directory) in the templates directory
+// RenderPath renders an object (file os directory) in the templates directory
 func (renderer *Renderer) RenderPath(sourcePath string, info os.FileInfo, err error) error {
 	if err != nil {
 		log.Printf("An error occurred while trying to analyze path %s\n", err)
@@ -174,10 +174,10 @@ func (renderer *Renderer) GetRootTemplatePath(spellInstallation domain.GolangLib
 	return fmt.Sprintf("%s%stemplates%s%s", templatesPath, config.PlatformSeparator, config.PlatformSeparator, commandName)
 }
 
-//RenderTemplate renders all templates in the template directory providing the respective variables
-//spell: specifies the spell which contains the command
-//commandName: specifies the name of the command for which the template will be rendered
-//variables: specifies the list of variables (value) which should be provided for rendering each file (key)
+// RenderTemplate renders all templates in the template directory providing the respective variables
+// spell: specifies the spell which contains the command
+// commandName: specifies the name of the command for which the template will be rendered
+// variables: specifies the list of variables (value) which should be provided for rendering each file (key)
 func (renderer *Renderer) RenderTemplate(spell domain.Spell, commandName string, globalVariables map[string]interface{}, specificVariables map[string]map[string]interface{}) error {
 	spellInstallation := domain.GolangLibrary{Name: spell.Name, URL: spell.URL}
 	renderer.rootTemplatePath = renderer.GetRootTemplatePath(spellInstallation, commandName)
